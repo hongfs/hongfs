@@ -20,6 +20,7 @@ FastAdmin 致力于服务开发者，为开发者节省时间，为了 FastAdmin
             "type": "git",
             "url": "https://gitee.com/fastadminnet/framework"
         }
+    ]
     ```
 
 ## 环境要求
