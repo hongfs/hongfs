@@ -45,7 +45,7 @@ do
         continue
     fi
 
-    docker pull $from_tag
+    docker pull -q $from_tag
     docker tag $from_tag $to_tag
-    docker push $to_tag
+    docker push -q $to_tag
 done
