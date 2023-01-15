@@ -18,7 +18,7 @@ getDigest(){
     fi
 
     # https://stackoverflow.com/questions/31912454/how-check-if-there-is-an-array-or-an-object-in-jq
-    local has_array=$tag_manifest | jq 'if type=="array" then "yes" else "no" end'
+    local has_array=$(echo $tag_manifest | jq 'if type=="array" then "yes" else "no" end')
 
     if [[ has_array == 'no' ]]
     then
