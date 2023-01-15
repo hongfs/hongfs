@@ -5,8 +5,17 @@ to=$TO
 
 content=$(curl -Ls "https://tools.hongfs.cn/v2/docker/tags/list?name=$from")
 
-from_array=(${from//\// })
-from_name=$from_array[${#array[@]}-1]
+getName() {
+    local value=$1
+
+    if [[ $value =~ "/" ]]; then
+        local from_array=(${value//\// })
+
+        echo ${from_array[-1]}
+    else
+        echo $value
+    fi
+}
 
 getDigest(){
     local mirror_name=$1
@@ -49,6 +58,6 @@ do
     fi
 
     docker pull -q $from_tag
-    docker tag "$from_name:$tag" $to_tag
+    docker tag "$(getName $from):$tag" $to_tag
     docker push -q $to_tag
 done
