@@ -4,10 +4,15 @@ on:
   push:
     branches:
       - image-sync
+  schedule:
+    - cron: "30 0 * * *" # 北京时间每天 08:30
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.ref }}
+      cancel-in-progress: true
     steps:
     - uses: actions/checkout@v3
     - uses: docker/login-action@v2
