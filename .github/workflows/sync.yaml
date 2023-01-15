@@ -50,6 +50,7 @@ jobs:
             to: "registry.cn-shenzhen.aliyuncs.com/hongfs/golang"
     steps:
     - uses: actions/checkout@v3
+    - name: Run
       run: |
         echo ${{ matrix.info.from }}
         echo ${{ matrix.info.to }}
