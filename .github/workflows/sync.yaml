@@ -51,3 +51,4 @@ jobs:
       run: |
         echo ${{ matrix.info.from }}
         echo ${{ matrix.info.to }}
+        echo ${{ github.ref }}
