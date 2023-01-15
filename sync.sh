@@ -1,9 +1,11 @@
 #!/bin/bash
 
+set -e
+
 from=$FROM
 to=$TO
 
-content=$(curl -L "https://tools.hongfs.cn/v2/docker/tags/list?name=$from")
+content=$(curl -Ls "https://tools.hongfs.cn/v2/docker/tags/list?name=$from")
 
 getDigest(){
     local mirror_name=$1
@@ -15,7 +17,10 @@ getDigest(){
         return
     fi
 
-    if [[ echo $tag_manifest | jq 'has("Descriptor")' ]]
+    # https://stackoverflow.com/questions/31912454/how-check-if-there-is-an-array-or-an-object-in-jq
+    local has_array=$tag_manifest | jq 'if type=="array" then "yes" else "no" end'
+
+    if [[ has_array == 'no' ]]
     then
         echo $tag_manifest | jq ".Descriptor.digest"
     else
