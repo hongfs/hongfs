@@ -10,9 +10,6 @@ on:
 jobs:
   base:
     runs-on: ubuntu-latest
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: false
     steps:
     - uses: actions/checkout@v3
     - uses: docker/login-action@v2
@@ -35,9 +32,6 @@ jobs:
         chmod +x ./sync.sh
   run:
     runs-on: ubuntu-latest
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: false
     needs:
       - base
     strategy:
