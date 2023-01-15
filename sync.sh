@@ -5,6 +5,9 @@ to=$TO
 
 content=$(curl -Ls "https://tools.hongfs.cn/v2/docker/tags/list?name=$from")
 
+from_array=(${from//\// })
+from_name=$from_array[${#array[@]}-1]
+
 getDigest(){
     local mirror_name=$1
 
@@ -32,7 +35,7 @@ do
     from_tag="$from:$tag"
     to_tag="$to:$tag"
 
-    echo $from_tag
+    echo "处理：$from_tag"
 
     from_manifest=$(getDigest $from_tag)
     to_manifest=$(getDigest $to_tag)
@@ -46,6 +49,6 @@ do
     fi
 
     docker pull -q $from_tag
-    docker tag $from_tag $to_tag
+    docker tag "$from_name:$tag" $to_tag
     docker push -q $to_tag
 done
