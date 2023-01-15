@@ -41,7 +41,6 @@ jobs:
             to: "registry.cn-hongkong.aliyuncs.com/hongfs/golang"
           - from: "golang"
             to: "registry.cn-shenzhen.aliyuncs.com/hongfs/golang"
-          - from: "test-track"
     steps:
     - uses: actions/checkout@v3
     - name: Run
