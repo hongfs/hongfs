@@ -57,10 +57,7 @@ do
         continue
     fi
 
-    docker images -a
     docker pull -q $from_tag
     docker tag $from_tag $to_tag
     docker push -q $to_tag
-    docker images -a
-    docker rmi -f $from_tag
 done
