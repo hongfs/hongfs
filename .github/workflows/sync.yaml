@@ -37,6 +37,9 @@ jobs:
         chmod +x ./sync.sh
   run:
     runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.ref }}
+      cancel-in-progress: true
     needs:
       - base
     strategy:
