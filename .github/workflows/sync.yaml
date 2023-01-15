@@ -31,15 +31,13 @@ jobs:
         password: ${{ secrets.ALIYUN_CR_PASSWORD }}
     - name: Run
       run: |
-        export
         cd "${GITHUB_WORKSPACE}"
-        chmod +x ./run.sh
         chmod +x ./sync.sh
   run:
     runs-on: ubuntu-latest
     concurrency:
       group: ${{ github.ref }}
-      cancel-in-progress: true
+      cancel-in-progress: false
     needs:
       - base
     strategy:
@@ -49,11 +47,31 @@ jobs:
             to: "registry.cn-hongkong.aliyuncs.com/hongfs/golang"
           - from: "golang"
             to: "registry.cn-shenzhen.aliyuncs.com/hongfs/golang"
+          - from: "test-track"
+            to: "registry.cn-qingdao.aliyuncs.com/metersphere/test-track"
+          - from: "system-setting"
+            to: "registry.cn-qingdao.aliyuncs.com/metersphere/system-setting"
+          - from: "report-stat"
+            to: "registry.cn-qingdao.aliyuncs.com/metersphere/report-stat"
+          - from: "project-management"
+            to: "registry.cn-qingdao.aliyuncs.com/metersphere/project-management"
+          - from: "performance-test"
+            to: "registry.cn-qingdao.aliyuncs.com/metersphere/performance-test"
+          - from: "api-test,gateway"
+            to: "registry.cn-qingdao.aliyuncs.com/metersphere/api-test,gateway"
+          - from: "eureka"
+            to: "registry.cn-qingdao.aliyuncs.com/metersphere/eureka"
+          - from: "data-streaming"
+            to: "registry.cn-qingdao.aliyuncs.com/metersphere/data-streaming"
+          - from: "node-controller"
+            to: "registry.cn-qingdao.aliyuncs.com/metersphere/node-controller"
+          - from: "ui-test"
+            to: "registry.cn-qingdao.aliyuncs.com/metersphere/ui-test"
+          - from: "workstation"
+            to: "registry.cn-qingdao.aliyuncs.com/metersphere/workstation"
     steps:
     - uses: actions/checkout@v3
     - name: Run
       run: |
-        export
-        echo ${{ matrix.info.from }}
-        echo ${{ matrix.info.to }}
-        echo ${{ github.ref }}
+        cd "${GITHUB_WORKSPACE}"
+        FROM=${{ matrix.info.from }} TO=${{ matrix.info.to }} ./sync.sh
