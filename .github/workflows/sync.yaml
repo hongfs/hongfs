@@ -5,7 +5,11 @@ on:
     branches:
       - image-sync
   schedule:
-    - cron: "30 0 * * *" # 北京时间每天 08:30
+    - cron: "30 0,12 * * *" # 北京时间每天 08/20:30
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   base:
@@ -26,12 +30,17 @@ jobs:
         registry: registry.cn-shenzhen.aliyuncs.com
         username: q2889895155
         password: ${{ secrets.ALIYUN_CR_PASSWORD }}
+    - uses: docker/login-action@v2
+      with:
+        registry: registry.cn-qingdao.aliyuncs.com
+        username: q2889895155
+        password: ${{ secrets.ALIYUN_CR_PASSWORD }}
   library:
     runs-on: ubuntu-latest
     needs:
       - base
     strategy:
-      max-parallel: 4
+      max-parallel: 8
       matrix:
         info:
           - from: "golang"
@@ -40,20 +49,6 @@ jobs:
             to: "registry.cn-shenzhen.aliyuncs.com/hongfs/golang"
     steps:
     - uses: actions/checkout@v3
-    - uses: docker/login-action@v2
-      with:
-        username: hongfs
-        password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-    - uses: docker/login-action@v2
-      with:
-        registry: registry.cn-hongkong.aliyuncs.com
-        username: q2889895155
-        password: ${{ secrets.ALIYUN_CR_PASSWORD }}
-    - uses: docker/login-action@v2
-      with:
-        registry: registry.cn-shenzhen.aliyuncs.com
-        username: q2889895155
-        password: ${{ secrets.ALIYUN_CR_PASSWORD }}
     - name: Run
       run: |
         cd "${GITHUB_WORKSPACE}"
@@ -64,25 +59,11 @@ jobs:
     needs:
       - base
     strategy:
-      max-parallel: 4
+      max-parallel: 8
       matrix:
-        name: [test-track,system-setting,report-stat,project-management,performance-test,api-test,gateway,eureka,data-streaming,node-controller,ui-test,workstation]
+        name: [test-track,system-setting,report-stat,project-management,performance-test,api-test,gateway,eureka,data-streaming,node-controller,ui-test,workstation,jmeter-master]
     steps:
     - uses: actions/checkout@v3
-    - uses: docker/login-action@v2
-      with:
-        username: hongfs
-        password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-    - uses: docker/login-action@v2
-      with:
-        registry: registry.cn-hongkong.aliyuncs.com
-        username: q2889895155
-        password: ${{ secrets.ALIYUN_CR_PASSWORD }}
-    - uses: docker/login-action@v2
-      with:
-        registry: registry.cn-shenzhen.aliyuncs.com
-        username: q2889895155
-        password: ${{ secrets.ALIYUN_CR_PASSWORD }}
     - name: Run
       run: |
         cd "${GITHUB_WORKSPACE}"
