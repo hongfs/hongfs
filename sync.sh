@@ -32,6 +32,9 @@ do
     from_tag="$from:$tag"
     to_tag="$to:$tag"
 
+    echo $from_tag
+    echo $to_tag
+
     from_manifest=$(getDigest $from_tag)
     to_manifest=$(getDigest $to_tag)
 
