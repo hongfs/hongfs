@@ -8,7 +8,7 @@ on:
     - cron: "30 0 * * *" # 北京时间每天 08:30
 
 jobs:
-  deploy:
+  base:
     runs-on: ubuntu-latest
     concurrency:
       group: ${{ github.ref }}
@@ -34,4 +34,22 @@ jobs:
         cd "${GITHUB_WORKSPACE}"
         chmod +x ./run.sh
         chmod +x ./sync.sh
-        ./run.sh
+  run:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.ref }}
+      cancel-in-progress: true
+    needs:
+      - base
+    strategy:
+      matrix:
+        info:
+          - from: "golang"
+            to: "registry.cn-hongkong.aliyuncs.com/hongfs/golang"
+          - from: "golang"
+            to: "registry.cn-shenzhen.aliyuncs.com/hongfs/golang"
+    steps:
+    - uses: actions/checkout@v3
+      run: |
+        echo ${{ matrix.info.from }}
+        echo ${{ matrix.info.to }}

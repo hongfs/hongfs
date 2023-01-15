@@ -33,7 +33,6 @@ do
     to_tag="$to:$tag"
 
     echo $from_tag
-    echo $to_tag
 
     from_manifest=$(getDigest $from_tag)
     to_manifest=$(getDigest $to_tag)
@@ -46,7 +45,7 @@ do
         continue
     fi
 
-    docker pull $from_tag
+    docker pull -q $from_tag
     docker tag $from_tag $to_tag
-    docker push $to_tag
+    docker push -q $to_tag
 done
