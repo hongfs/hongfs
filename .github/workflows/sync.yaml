@@ -47,6 +47,7 @@ jobs:
     - name: Run
       run: |
         cd "${GITHUB_WORKSPACE}"
+        chmod +x ./sync.sh
         FROM=${{ matrix.info.from }} TO=${{ matrix.info.to }} ./sync.sh
   metersphere:
     runs-on: ubuntu-latest
@@ -60,4 +61,5 @@ jobs:
     - name: Run
       run: |
         cd "${GITHUB_WORKSPACE}"
+        chmod +x ./sync.sh
         FROM=registry.cn-qingdao.aliyuncs.com/metersphere/${{ matrix.name }} TO=hongfs/${{ matrix.name }} ./sync.sh
