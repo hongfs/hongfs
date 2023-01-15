@@ -15,7 +15,7 @@ getDigest(){
         return
     fi
 
-    if [[ $mirror_name =~ "aliyuncs.com/" ]]
+    if [[ echo $tag_manifest | jq 'has("Descriptor")' ]]
     then
         echo $tag_manifest | jq ".Descriptor.digest"
     else
