@@ -30,7 +30,7 @@ jobs:
       run: |
         cd "${GITHUB_WORKSPACE}"
         chmod +x ./sync.sh
-  run:
+  library:
     runs-on: ubuntu-latest
     needs:
       - base
@@ -42,30 +42,22 @@ jobs:
           - from: "golang"
             to: "registry.cn-shenzhen.aliyuncs.com/hongfs/golang"
           - from: "test-track"
-            to: "registry.cn-qingdao.aliyuncs.com/metersphere/test-track"
-          - from: "system-setting"
-            to: "registry.cn-qingdao.aliyuncs.com/metersphere/system-setting"
-          - from: "report-stat"
-            to: "registry.cn-qingdao.aliyuncs.com/metersphere/report-stat"
-          - from: "project-management"
-            to: "registry.cn-qingdao.aliyuncs.com/metersphere/project-management"
-          - from: "performance-test"
-            to: "registry.cn-qingdao.aliyuncs.com/metersphere/performance-test"
-          - from: "api-test,gateway"
-            to: "registry.cn-qingdao.aliyuncs.com/metersphere/api-test,gateway"
-          - from: "eureka"
-            to: "registry.cn-qingdao.aliyuncs.com/metersphere/eureka"
-          - from: "data-streaming"
-            to: "registry.cn-qingdao.aliyuncs.com/metersphere/data-streaming"
-          - from: "node-controller"
-            to: "registry.cn-qingdao.aliyuncs.com/metersphere/node-controller"
-          - from: "ui-test"
-            to: "registry.cn-qingdao.aliyuncs.com/metersphere/ui-test"
-          - from: "workstation"
-            to: "registry.cn-qingdao.aliyuncs.com/metersphere/workstation"
     steps:
     - uses: actions/checkout@v3
     - name: Run
       run: |
         cd "${GITHUB_WORKSPACE}"
         FROM=${{ matrix.info.from }} TO=${{ matrix.info.to }} ./sync.sh
+  metersphere:
+    runs-on: ubuntu-latest
+    needs:
+      - base
+    strategy:
+      matrix:
+        name: [test-track,system-setting,report-stat,project-management,performance-test,api-test,gateway,eureka,data-streaming,node-controller,ui-test,workstation]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Run
+      run: |
+        cd "${GITHUB_WORKSPACE}"
+        FROM=registry.cn-qingdao.aliyuncs.com/metersphere/${{ matrix.name }} TO=hongfs/${{ matrix.name }} ./sync.sh
