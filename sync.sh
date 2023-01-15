@@ -58,6 +58,7 @@ do
     fi
 
     docker pull -q $from_tag
-    docker tag "$(getName $from):$tag" $to_tag
+    docker tag $from_tag $to_tag
     docker push -q $to_tag
+    docker rmi -f $from_tag
 done
