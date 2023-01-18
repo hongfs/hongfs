@@ -46,15 +46,19 @@ do
 
     echo "处理：$from_tag"
 
-    from_manifest=$(getDigest $from_tag)
-    to_manifest=$(getDigest $to_tag)
+    if [[ $from_manifest =~ ".aliyuncs.com" ]]; then
+        #
+    else
+        from_manifest=$(getDigest $from_tag)
+        to_manifest=$(getDigest $to_tag)
 
-    if [[ $from_manifest == "" ]];then
-        continue
-    fi
+        if [[ $from_manifest == "" ]];then
+            continue
+        fi
 
-    if [[ $from_manifest == $to_manifest ]];then
-        continue
+        if [[ $from_manifest == $to_manifest ]];then
+            continue
+        fi
     fi
 
     docker pull -q $from_tag
