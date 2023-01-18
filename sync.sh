@@ -47,7 +47,7 @@ do
     echo "处理：$from_tag"
 
     if [[ $from_manifest =~ ".aliyuncs.com" ]]; then
-        #
+        echo "不验证信息"
     else
         from_manifest=$(getDigest $from_tag)
         to_manifest=$(getDigest $to_tag)
