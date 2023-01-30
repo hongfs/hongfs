@@ -11,7 +11,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: RUN
-      uses: wei/git-sync@v3
+      run: |
+        git config --global --add safe.directory /github/workspace
+    - uses: wei/git-sync@v3
       with:
         source_repo: "gitee.com/fastadminnet/framework.git"
         source_branch: "master"
