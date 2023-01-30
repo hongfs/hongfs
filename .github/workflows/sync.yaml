@@ -17,6 +17,6 @@ jobs:
       with:
         source_repo: "git@gitee.com:fastadminnet/framework.git"
         source_branch: "master"
-        destination_repo: "github.com/hongfs/hongfs"
+        destination_repo: "git@github.com:hongfs/hongfs"
         destination_branch: "fastadmin-framework"
         source_ssh_private_key: ${{ secrets.FASTADMIN_SYNC_GITEE_PRIVATE_KEY }}
