@@ -14,9 +14,9 @@ jobs:
       run: |
         echo $USER
         pwd
-        mkdir -p ~/.ssh/
-        echo "${{ secrets.FASTADMIN_SYNC_GITEE_PRIVATE_KEY }}" > ~/.ssh/src_rsa
-        chmod 600 ~/.ssh/src_rsa
-        git remote add fastadmin git@gitee.com:fastadminnet/framework.git
-        git branch -M fastadmin-framework
-        git push -u fastadmin fastadmin-framework
+        sudo mkdir -p ~/.ssh/
+        sudo echo "${{ secrets.FASTADMIN_SYNC_GITEE_PRIVATE_KEY }}" > ~/.ssh/src_rsa
+        sudo chmod 600 ~/.ssh/src_rsa
+        sudo git remote add fastadmin git@gitee.com:fastadminnet/framework.git
+        sudo git branch -M fastadmin-framework
+        sudo git push -u fastadmin fastadmin-framework
