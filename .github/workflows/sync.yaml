@@ -1,0 +1,17 @@
+name: Fastadmin Sync
+
+on:
+  push:
+    branches:
+      - fastadmin-sync
+
+jobs:
+  base:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: RUN
+      run: |
+        git remote add fastadmin git@gitee.com/fastadminnet/framework.git
+        git fetch fastadmin
+        git pull fastadmin-data fastadmin
