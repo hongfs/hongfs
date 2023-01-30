@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+    - name: RUN
+      run: |
+        export
     - uses: wei/git-sync@v3
       with:
         source_repo: "git@gitee.com:fastadminnet/framework.git"
