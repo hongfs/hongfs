@@ -10,12 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: RUN
-      run: |
-        git config --global --add safe.directory /github/workspace
     - uses: wei/git-sync@v3
       with:
-        source_repo: "gitee.com/fastadminnet/framework.git"
+        source_repo: "git@gitee.com/fastadminnet/framework.git"
         source_branch: "master"
         destination_repo: "github.com/hongfs/hongfs"
         destination_branch: "fastadmin-framework"
