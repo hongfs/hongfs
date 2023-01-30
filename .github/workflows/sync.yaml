@@ -13,11 +13,10 @@ jobs:
     - name: RUN
       run: |
         echo $USER
-        cd
         pwd
-        mkdir -p .ssh/
-        echo "${{ secrets.FASTADMIN_SYNC_GITEE_PRIVATE_KEY }}" | sed 's/\\n/\n/g' >/root/.ssh/src_rsa
-        chmod 600 .ssh/src_rsa
+        mkdir -p ~/.ssh/
+        echo "${{ secrets.FASTADMIN_SYNC_GITEE_PRIVATE_KEY }}" | sed 's/\\n/\n/g' > ~/.ssh/src_rsa
+        chmod 600 ~/.ssh/src_rsa
         git remote add fastadmin git@gitee.com:fastadminnet/framework.git
         git branch -M fastadmin-framework
         git push -u fastadmin fastadmin-framework
