@@ -12,10 +12,8 @@ jobs:
     - uses: actions/checkout@v3
     - name: RUN
       run: |
-        echo $USER
-        pwd
         sudo mkdir -p ~/.ssh/
-        sudo echo "${{ secrets.FASTADMIN_SYNC_GITEE_PRIVATE_KEY }}" > ~/.ssh/src_rsa
+        sudo echo "${{ secrets.FASTADMIN_SYNC_GITEE_PRIVATE_KEY }}" >> ~/.ssh/src_rsa
         sudo chmod 600 ~/.ssh/src_rsa
         sudo git remote add fastadmin git@gitee.com:fastadminnet/framework.git
         sudo git branch -M fastadmin-framework
