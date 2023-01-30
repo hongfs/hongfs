@@ -13,6 +13,6 @@ jobs:
     - name: RUN
       run: |
         git branch
-        git remote add fastadmin https://gitee.com/fastadminnet/framework.git
-        git fetch fastadmin
-        git pull fastadmin-data fastadmin
+        git remote add origin git@gitee.com:fastadminnet/framework.git
+        git branch -M fastadmin
+        git push -u origin fastadmin
