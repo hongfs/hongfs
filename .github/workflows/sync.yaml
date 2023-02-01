@@ -24,6 +24,8 @@ jobs:
       max-parallel: 8
       matrix:
         info:
+          - from: "minio"
+            to: "registry.cn-hongkong.aliyuncs.com/hongfs/minio"
           - from: "golang"
             to: "registry.cn-hongkong.aliyuncs.com/hongfs/golang"
           - from: "golang"
