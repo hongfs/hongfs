@@ -75,3 +75,27 @@ jobs:
         cd "${GITHUB_WORKSPACE}"
         chmod +x ./sync.sh
         FROM=registry.cn-qingdao.aliyuncs.com/metersphere/${{ matrix.name }} TO=hongfs/${{ matrix.name }} ./sync.sh
+  aliyun_acs:
+    runs-on: ubuntu-latest
+    needs:
+      - base
+    strategy:
+      max-parallel: 5
+      matrix:
+        name: [csi-node-driver-registrar,csi-plugin,csi-provisioner]
+    steps:
+    - uses: actions/checkout@v3
+    - uses: docker/login-action@v2
+      with:
+        username: hongfs
+        password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+    - uses: docker/login-action@v2
+      with:
+        registry: registry.cn-hangzhou.aliyuncs.com
+        username: q2889895155
+        password: ${{ secrets.ALIYUN_CR_PASSWORD }}
+    - name: Run
+      run: |
+        cd "${GITHUB_WORKSPACE}"
+        chmod +x ./sync.sh
+        FROM=registry.cn-hangzhou.aliyuncs.com/metersphere/${{ matrix.name }} TO=hongfs/${{ matrix.name }} ./sync.sh
