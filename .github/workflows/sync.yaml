@@ -98,4 +98,4 @@ jobs:
       run: |
         cd "${GITHUB_WORKSPACE}"
         chmod +x ./sync.sh
-        FROM=registry.cn-hangzhou.aliyuncs.com/metersphere/${{ matrix.name }} TO=hongfs/${{ matrix.name }} ./sync.sh
+        FROM=registry.cn-hangzhou.aliyuncs.com/acs/${{ matrix.name }} TO=hongfs/${{ matrix.name }} ./sync.sh
