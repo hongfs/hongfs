@@ -3,7 +3,7 @@
 from=$FROM
 to=$TO
 
-content=$(curl -Ls "https://tools.hongfs.cn/v2/docker/tags/list?name=$from")
+content=$(curl -Ls "https://tools.hongfs.cn/v2/docker/tags/list?docker=1&name=$from")
 
 getName() {
     local value=$1
