@@ -82,7 +82,7 @@ jobs:
     strategy:
       max-parallel: 5
       matrix:
-        name: [csi-node-driver-registrar,csi-plugin,csi-provisioner]
+        name: [csi-node-driver-registrar,csi-plugin,csi-provisioner,autoscaler]
     steps:
     - uses: actions/checkout@v3
     - uses: docker/login-action@v2
