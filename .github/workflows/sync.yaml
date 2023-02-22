@@ -50,7 +50,7 @@ jobs:
       run: |
         cd "${GITHUB_WORKSPACE}"
         chmod +x ./sync.sh
-        FROM=${{ matrix.info.from }} TO=${{ matrix.info.to }} ./sync.sh
+      # FROM=${{ matrix.info.from }} TO=${{ matrix.info.to }} ./sync.sh
   metersphere:
     runs-on: ubuntu-latest
     needs:
