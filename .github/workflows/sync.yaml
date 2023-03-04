@@ -5,6 +5,7 @@ on:
     branches:
       - fastadmin-sync
 
+
 # https://hk.hongfs.dev/composer/repos/hongfs/hongfs/zipball/096811899433eb0eb0988f1fe1db56ebb521bf34
 
 jobs:
