@@ -80,7 +80,7 @@ jobs:
     strategy:
       max-parallel: 8
       matrix:
-        name: [manage,web-ui,engine,file-server,collector,kafka]
+        name: [manage,web-ui,engine,file-server,collector,kafka,mysql,redis,mongo,zookeeper]
     steps:
     - uses: actions/checkout@v3
     - uses: docker/login-action@v2
