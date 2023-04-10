@@ -24,8 +24,6 @@ jobs:
       max-parallel: 8
       matrix:
         info:
-          - from: "minio/minio"
-            to: "registry.cn-hongkong.aliyuncs.com/hongfs/minio"
           - from: "golang"
             to: "registry.cn-hongkong.aliyuncs.com/hongfs/golang"
           - from: "golang"
@@ -75,6 +73,30 @@ jobs:
         cd "${GITHUB_WORKSPACE}"
         chmod +x ./sync.sh
         FROM=registry.cn-qingdao.aliyuncs.com/metersphere/${{ matrix.name }} TO=hongfs/${{ matrix.name }} ./sync.sh
+  runnergo:
+    runs-on: ubuntu-latest
+    needs:
+      - base
+    strategy:
+      max-parallel: 8
+      matrix:
+        name: [manage,web-ui,engine,file-server,collector]
+    steps:
+    - uses: actions/checkout@v3
+    - uses: docker/login-action@v2
+      with:
+        username: hongfs
+        password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+    - uses: docker/login-action@v2
+      with:
+        registry: registry.cn-beijing.aliyuncs.com
+        username: q2889895155
+        password: ${{ secrets.ALIYUN_CR_PASSWORD }}
+    - name: Run
+      run: |
+        cd "${GITHUB_WORKSPACE}"
+        chmod +x ./sync.sh
+        FROM=registry.cn-beijing.aliyuncs.com/runnergo/${{ matrix.name }} TO=hongfs/runnergo_${{ matrix.name }} ./sync.sh
   aliyun_acs:
     runs-on: ubuntu-latest
     needs:
