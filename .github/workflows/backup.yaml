@@ -20,3 +20,7 @@ jobs:
       GITHUB_OWNER: hongfs
       BAIDUPAN_TOKEN: ${{ secrets.BACKUP_BAIDUPAN_TOKEN }}
       GITHUB_TOKEN: ${{ secrets.BACKUP_GITHUB_TOKEN }}
+    steps:
+    - name: Run
+      run: |
+        ./main
