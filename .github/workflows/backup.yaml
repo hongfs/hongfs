@@ -1,0 +1,22 @@
+name: GitHub Backup
+
+on:
+  push:
+    branches:
+      - github-backup
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.ref }}
+      cancel-in-progress: true
+    container:
+     image: ghcr.io/hongfs/env:github-backup-to-baidupan
+     env:
+      GET_TAGS: 1
+      GET_BRANCH: 1
+      BASE_DIR: /tmp
+      GITHUB_OWNER: hongfs
+      BAIDUPAN_TOKEN: ${{ secrets.BACKUP_BAIDUPAN_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.BACKUP_GITHUB_TOKEN }}
