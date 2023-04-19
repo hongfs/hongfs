@@ -11,16 +11,7 @@ jobs:
     concurrency:
       group: ${{ github.ref }}
       cancel-in-progress: true
-    container:
-     image: ghcr.io/hongfs/env:github-backup-to-baidupan
-     env:
-      GET_TAGS: 1
-      GET_BRANCH: 1
-      BASE_DIR: /tmp
-      GITHUB_OWNER: hongfs
-      BAIDUPAN_TOKEN: ${{ secrets.BACKUP_BAIDUPAN_TOKEN }}
-      GITHUB_TOKEN: ${{ secrets.BACKUP_GITHUB_TOKEN }}
     steps:
     - name: Run
       run: |
-        ./main
+        podman run -it --rm -e GET_TAGS=1 -e GET_BRANCH=1 -e BASE_DIR=/tmp -e GITHUB_OWNER=hongfs -e BAIDUPAN_TOKEN=${{ secrets.BACKUP_BAIDUPAN_TOKEN }} -e GITHUB_TOKEN=${{ secrets.BACKUP_GITHUB_TOKEN }} ghcr.io/hongfs/env:github-backup-to-baidupan
