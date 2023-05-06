@@ -28,6 +28,8 @@ jobs:
             to: "registry.cn-hongkong.aliyuncs.com/hongfs/golang"
           - from: "golang"
             to: "registry.cn-shenzhen.aliyuncs.com/hongfs/golang"
+          - from: "ghcr.io/hongfs/env"
+            to: "registry.cn-shenzhen.aliyuncs.com/hongfs/env"
     steps:
     - uses: actions/checkout@v3
     - uses: docker/login-action@v2
