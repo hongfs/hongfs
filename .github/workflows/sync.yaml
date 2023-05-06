@@ -28,8 +28,6 @@ jobs:
             to: "registry.cn-hongkong.aliyuncs.com/hongfs/golang"
           - from: "golang"
             to: "registry.cn-shenzhen.aliyuncs.com/hongfs/golang"
-          - from: "ghcr.io/hongfs/env"
-            to: "registry.cn-shenzhen.aliyuncs.com/hongfs/env"
     steps:
     - uses: actions/checkout@v3
     - uses: docker/login-action@v2
@@ -123,3 +121,23 @@ jobs:
         cd "${GITHUB_WORKSPACE}"
         chmod +x ./sync.sh
         FROM=registry.cn-hangzhou.aliyuncs.com/acs/${{ matrix.name }} TO=hongfs/${{ matrix.name }} ./sync.sh
+  ghcr_env:
+    runs-on: ubuntu-latest
+    needs:
+      - base
+    strategy:
+      max-parallel: 5
+      matrix:
+        name: [cn-shenzhen]
+    steps:
+    - uses: actions/checkout@v3
+    - uses: docker/login-action@v2
+      with:
+        registry: registry.cn-shenzhen.aliyuncs.com
+        username: q2889895155
+        password: ${{ secrets.ALIYUN_CR_PASSWORD }}
+    - name: Run
+      run: |
+        cd "${GITHUB_WORKSPACE}"
+        chmod +x ./sync.sh
+        TO=registry.${{ matrix.name }}.aliyuncs.com/hongfs/env FROM=ghcr.io/hongfs/env ./sync.sh
