@@ -3,7 +3,7 @@ name: GitHub Backup
 on:
   push:
     branches:
-      - github-backup
+      - github-backup-v2
 
 jobs:
   backup:
