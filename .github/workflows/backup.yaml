@@ -14,4 +14,4 @@ jobs:
     steps:
     - name: Run
       run: |
-        docker run --rm -e BASE_DIR=backup/github_hongfs_20230616_001/ -e GITHUB_OWNER=hongfs -e GITHUB_TOKEN=${{ secrets.BACKUP_GITHUB_TOKEN2 }} -e OSS_BUCKET=hongfs-backup-v3 -e OSS_ENDPOINT=oss-cn-shenzhen.aliyuncs.com -e OSS_ACCESS_KEY_ID=LTAI5tJUjQbWbuBF724KyM3a -e OSS_ACCESS_KEY_SECRET=${{ secrets.OSS_ACCESS_KEY_SECRET }} registry.cn-shenzhen.aliyuncs.com/hongfs/backup-to-oss:v2
+        docker run --rm -e BASE_DIR=backup/github_hongfs_20230616_001/ -e GITHUB_OWNER=hongfs -e HAS_ALL=1 -e GITHUB_TOKEN=${{ secrets.BACKUP_GITHUB_TOKEN2 }} -e OSS_BUCKET=hongfs-backup-v3 -e OSS_ENDPOINT=oss-cn-shenzhen.aliyuncs.com -e OSS_ACCESS_KEY_ID=LTAI5tJUjQbWbuBF724KyM3a -e OSS_ACCESS_KEY_SECRET=${{ secrets.OSS_ACCESS_KEY_SECRET }} registry.cn-shenzhen.aliyuncs.com/hongfs/backup-to-oss:v2
