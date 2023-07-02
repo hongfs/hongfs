@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - fastadmin-sync
+#v=1
 
 jobs:
   base:
