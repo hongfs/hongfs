@@ -3,9 +3,7 @@ name: Sync
 on:
   push:
     branches:
-      - image-sync
-  schedule:
-    - cron: "30 0,5,12 * * *" # 北京时间每天 08/13/20:30
+      - image-sync-china
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
