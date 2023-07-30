@@ -23,6 +23,11 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - base
+    services:
+      get-docker-tags:
+        image: ghcr.io/hongfs/env:get-docker-tags
+        ports:
+          - 9000:9000
     strategy:
       max-parallel: 8
       matrix:
@@ -56,6 +61,11 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - base
+    services:
+      get-docker-tags:
+        image: ghcr.io/hongfs/env:get-docker-tags
+        ports:
+          - 9000:9000
     strategy:
       max-parallel: 8
       matrix:
@@ -80,6 +90,11 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - base
+    services:
+      get-docker-tags:
+        image: ghcr.io/hongfs/env:get-docker-tags
+        ports:
+          - 9000:9000
     strategy:
       max-parallel: 8
       matrix:
@@ -104,6 +119,11 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - base
+    services:
+      get-docker-tags:
+        image: ghcr.io/hongfs/env:get-docker-tags
+        ports:
+          - 9000:9000
     strategy:
       max-parallel: 5
       matrix:
@@ -128,6 +148,11 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - base
+    services:
+      get-docker-tags:
+        image: ghcr.io/hongfs/env:get-docker-tags
+        ports:
+          - 9000:9000
     strategy:
       max-parallel: 5
       matrix:
@@ -148,6 +173,11 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - base
+    services:
+      get-docker-tags:
+        image: ghcr.io/hongfs/env:get-docker-tags
+        ports:
+          - 9000:9000
     steps:
     - uses: actions/checkout@v3
     - uses: docker/login-action@v2
