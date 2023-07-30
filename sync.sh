@@ -3,7 +3,7 @@
 from=$FROM
 to=$TO
 
-content=$(curl -v "http://get-docker-tags/get?name=$from")
+content=$(curl -v "http://127.0.0.1:9000/get?name=$from")
 
 getName() {
     local value=$1
