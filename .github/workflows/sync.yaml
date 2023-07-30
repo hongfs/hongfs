@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - image-sync
+  schedule:
+    - cron: "30 0,5,12 * * *" # 北京时间每天 08/13/20:30
+
+# 已注释程序的同步
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -37,11 +41,11 @@ jobs:
         registry: registry.cn-qingdao.aliyuncs.com
         username: q2889895155
         password: ${{ secrets.ALIYUN_CR_PASSWORD }}
-    - name: Run
-      run: |
-        cd "${GITHUB_WORKSPACE}"
-        chmod +x ./sync.sh
-        FROM=registry.cn-qingdao.aliyuncs.com/metersphere/${{ matrix.name }} TO=hongfs/${{ matrix.name }} ./sync.sh
+    # - name: Run
+    #   run: |
+    #     cd "${GITHUB_WORKSPACE}"
+    #     chmod +x ./sync.sh
+    #     FROM=registry.cn-qingdao.aliyuncs.com/metersphere/${{ matrix.name }} TO=hongfs/${{ matrix.name }} ./sync.sh
   runnergo:
     runs-on: ubuntu-latest
     needs:
@@ -65,11 +69,11 @@ jobs:
         registry: registry.cn-beijing.aliyuncs.com
         username: q2889895155
         password: ${{ secrets.ALIYUN_CR_PASSWORD }}
-    - name: Run
-      run: |
-        cd "${GITHUB_WORKSPACE}"
-        chmod +x ./sync.sh
-        FROM=registry.cn-beijing.aliyuncs.com/runnergo/${{ matrix.name }} TO=hongfs/runnergo_${{ matrix.name }} ./sync.sh
+    # - name: Run
+    #   run: |
+    #     cd "${GITHUB_WORKSPACE}"
+    #     chmod +x ./sync.sh
+    #     FROM=registry.cn-beijing.aliyuncs.com/runnergo/${{ matrix.name }} TO=hongfs/runnergo_${{ matrix.name }} ./sync.sh
   aliyun_acs:
     runs-on: ubuntu-latest
     needs:
@@ -93,11 +97,11 @@ jobs:
         registry: registry.cn-hangzhou.aliyuncs.com
         username: q2889895155
         password: ${{ secrets.ALIYUN_CR_PASSWORD }}
-    - name: Run
-      run: |
-        cd "${GITHUB_WORKSPACE}"
-        chmod +x ./sync.sh
-        FROM=registry.cn-hangzhou.aliyuncs.com/acs/${{ matrix.name }} TO=hongfs/${{ matrix.name }} ./sync.sh
+    # - name: Run
+    #   run: |
+    #     cd "${GITHUB_WORKSPACE}"
+    #     chmod +x ./sync.sh
+    #     FROM=registry.cn-hangzhou.aliyuncs.com/acs/${{ matrix.name }} TO=hongfs/${{ matrix.name }} ./sync.sh
   ghcr_env:
     runs-on: ubuntu-latest
     needs:
@@ -117,8 +121,8 @@ jobs:
         registry: registry.cn-shenzhen.aliyuncs.com
         username: q2889895155
         password: ${{ secrets.ALIYUN_CR_PASSWORD }}
-    - name: Run
-      run: |
-        cd "${GITHUB_WORKSPACE}"
-        chmod +x ./sync.sh
-        TO=registry.${{ matrix.name }}.aliyuncs.com/hongfs/env FROM=ghcr.io/hongfs/env ./sync.sh
+    # - name: Run
+    #   run: |
+    #     cd "${GITHUB_WORKSPACE}"
+    #     chmod +x ./sync.sh
+    #     TO=registry.${{ matrix.name }}.aliyuncs.com/hongfs/env FROM=ghcr.io/hongfs/env ./sync.sh
