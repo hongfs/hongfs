@@ -3,7 +3,7 @@ name: Sync
 on:
   push:
     branches:
-      - image-sync-china
+      - image-sync
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -12,6 +12,11 @@ concurrency:
 jobs:
   base:
     runs-on: ubuntu-latest
+    services:
+      get-docker-tags:
+        image: ghcr.io/hongfs/env:get-docker-tags
+        ports:
+          - 9000:9000
     steps:
     - uses: actions/checkout@v3
   library:
