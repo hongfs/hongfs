@@ -17,7 +17,7 @@ jobs:
   ghcr_env:
     runs-on: ubuntu-latest
     services:
-      get-docker-tags:
+      tags:
         image: ghcr.io/hongfs/env:get-docker-tags
         ports:
           - 9000:9000
@@ -32,3 +32,4 @@ jobs:
         cd "${GITHUB_WORKSPACE}"
         chmod +x ./sync.sh
         TO=hongfs/env FROM=ghcr.io/hongfs/env ./sync.sh
+        docker logs "${{ job.services.tags.id }}"
