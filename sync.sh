@@ -3,7 +3,7 @@
 from=$FROM
 to=$TO
 
-content=$(curl -vv "http://127.0.0.1:9000/get?name=$from")
+content=$(curl "http://127.0.0.1:9000/get?name=$from")
 
 echo "同步：$from -> $to"
 
@@ -53,9 +53,8 @@ do
 
     echo "处理：$from_tag"
 
-    if [[ $from_tag =~ ".aliyuncs.com" ]] || [[ $from_tag =~ "ghcr.io" ]]; then
-        echo "不验证信息"
-    else
+    # 处理非 .aliyuncs.com 和非 ghcr.io 的镜像
+    if [[ $from_tag != *.aliyuncs.com* ]] && [[ $from_tag != *.ghcr.io* ]]; then
         from_manifest=$(getDigest $from_tag)
         to_manifest=$(getDigest $to_tag)
 
