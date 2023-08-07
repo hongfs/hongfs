@@ -111,18 +111,14 @@ jobs:
         image: ghcr.io/hongfs/env:get-docker-tags
         ports:
           - 9000:9000
-    strategy:
-      matrix:
-        name: [cn-shenzhen]
     steps:
     - uses: actions/checkout@v3
     - uses: docker/login-action@v2
       with:
-        registry: registry.cn-shenzhen.aliyuncs.com
-        username: q2889895155
-        password: ${{ secrets.ALIYUN_CR_PASSWORD }}
-    # - name: Run
-    #   run: |
-    #     cd "${GITHUB_WORKSPACE}"
-    #     chmod +x ./sync.sh
-    #     TO=registry.${{ matrix.name }}.aliyuncs.com/hongfs/env FROM=ghcr.io/hongfs/env ./sync.sh
+        username: hongfs
+        password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+    - name: Run
+      run: |
+        cd "${GITHUB_WORKSPACE}"
+        chmod +x ./sync.sh
+        TO=hongfs/env FROM=ghcr.io/hongfs/env ./sync.sh
