@@ -5,6 +5,13 @@ to=$TO
 
 content=$(curl -vv "http://127.0.0.1:9000/get?name=$from")
 
+echo "同步：$from -> $to"
+
+if [[ $content == "" ]]; then
+    echo "没有需要同步的镜像"
+    exit 0
+fi
+
 getName() {
     local value=$1
 
