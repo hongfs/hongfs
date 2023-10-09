@@ -3,9 +3,9 @@ name: Sync
 on:
   push:
     branches:
-      - image-sync
-  schedule:
-    - cron: "0 * * * *" # 每小时同步一次
+      - image-sync111
+  # schedule:
+  #   - cron: "0 * * * *" # 每小时同步一次
 
 # 已注释程序的同步
 
