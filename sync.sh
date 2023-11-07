@@ -69,7 +69,7 @@ do
         fi
     fi
 
-    podman pull -q $from_tag
-    podman tag $from_tag $to_tag
-    podman push -q $to_tag
+    docker pull -q $from_tag
+    docker tag $from_tag $to_tag
+    docker push -q $to_tag
 done
