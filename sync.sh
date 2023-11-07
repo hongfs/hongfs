@@ -27,7 +27,7 @@ getName() {
 getDigest(){
     local mirror_name=$1
 
-    local tag_manifest=$(podman manifest inspect --verbose $mirror_name 2> /dev/null)
+    local tag_manifest=$(docker manifest inspect --verbose $mirror_name 2> /dev/null)
 
     if [[ $tag_manifest == "" ]]; then
         echo ""
@@ -54,7 +54,7 @@ do
     echo "处理：$from_tag"
 
     # 处理非 .aliyuncs.com 和非 ghcr.io 的镜像
-    if [[ $from_tag != *.aliyuncs.com* ]] && [[ $from_tag != *.ghcr.io* ]]; then
+    if [[ $from_tag != *.aliyuncs.com* ]] && [[ $from_tag != ghcr.io* ]]; then
         from_manifest=$(getDigest $from_tag)
         to_manifest=$(getDigest $to_tag)
 
