@@ -3,7 +3,7 @@ name: Sync
 on:
   push:
     branches:
-      - image-sync111
+      - image-sync
   # schedule:
   #   - cron: "0 * * * *" # 每小时同步一次
 
@@ -25,11 +25,11 @@ jobs:
     - uses: actions/checkout@v3
     - uses: docker/login-action@v2
       with:
-        username: hongfs
-        password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+        registry: registry.cn-hongkong.aliyuncs.com
+        username: q2889895155
+        password: ${{ secrets.ALIYUN_CR_PASSWORD }}
     - name: Run
       run: |
         cd "${GITHUB_WORKSPACE}"
         chmod +x ./sync.sh
-        TO=hongfs/env FROM=ghcr.io/hongfs/env ./sync.sh
-        docker logs "${{ job.services.tags.id }}"
+        TO=registry.cn-hongkong.aliyuncs.com/hongfs/env FROM=ghcr.io/hongfs/env ./sync.sh
