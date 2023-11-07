@@ -59,10 +59,12 @@ do
         to_manifest=$(getDigest $to_tag)
 
         if [[ $from_manifest == "" ]];then
+            echo "获取 $from_tag 的 manifest 失败"
             continue
         fi
 
         if [[ $from_manifest == $to_manifest ]];then
+            echo "跳过：$from_tag"
             continue
         fi
     fi
