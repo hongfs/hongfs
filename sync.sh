@@ -27,7 +27,7 @@ getName() {
 getDigest(){
     local mirror_name=$1
 
-    local tag_manifest=$(docker manifest inspect --verbose $mirror_name 2> /dev/null)
+    local tag_manifest=$(podman manifest inspect --verbose $mirror_name 2> /dev/null)
 
     if [[ $tag_manifest == "" ]]; then
         echo ""
@@ -67,7 +67,7 @@ do
         fi
     fi
 
-    docker pull -q $from_tag
-    docker tag $from_tag $to_tag
-    docker push -q $to_tag
+    podman pull -q $from_tag
+    podman tag $from_tag $to_tag
+    podman push -q $to_tag
 done
