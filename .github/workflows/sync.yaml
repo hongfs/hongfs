@@ -40,4 +40,4 @@ jobs:
       run: |
         cd "${GITHUB_WORKSPACE}"
         chmod +x ./sync.sh
-        TO=registry.${{ matrix.name }}.aliyuncs.com/hongfs/env FROM=ghcr.io/hongfs/env ./sync.sh
+        TO=registry.${{ matrix.region }}.aliyuncs.com/hongfs/env FROM=ghcr.io/hongfs/env ./sync.sh

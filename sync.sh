@@ -54,20 +54,20 @@ do
     echo "处理：$from_tag"
 
     # 处理非 .aliyuncs.com 和非 ghcr.io 的镜像
-    # if [[ $from_tag != *.aliyuncs.com* ]] && [[ $from_tag != ghcr.io* ]]; then
-    #     from_manifest=$(getDigest $from_tag)
-    #     to_manifest=$(getDigest $to_tag)
+    if [[ $from_tag != *.aliyuncs.com* ]] && [[ $from_tag != ghcr.io* ]]; then
+        from_manifest=$(getDigest $from_tag)
+        to_manifest=$(getDigest $to_tag)
 
-    #     if [[ $from_manifest == "" ]];then
-    #         echo "获取 $from_tag 的 manifest 失败"
-    #         continue
-    #     fi
+        if [[ $from_manifest == "" ]];then
+            echo "获取 $from_tag 的 manifest 失败"
+            continue
+        fi
 
-    #     if [[ $from_manifest == $to_manifest ]];then
-    #         echo "跳过：$from_tag"
-    #         continue
-    #     fi
-    # fi
+        if [[ $from_manifest == $to_manifest ]];then
+            echo "跳过：$from_tag"
+            continue
+        fi
+    fi
 
     docker pull -q $from_tag
     docker tag $from_tag $to_tag
