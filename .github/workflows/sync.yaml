@@ -1,13 +1,9 @@
-name: Sync
+name: Ecs Price Sync
 
 on:
   push:
     branches:
-      - image-sync
-  # schedule:
-  #   - cron: "0 * * * *" # 每小时同步一次
-
-# 已注释程序的同步
+      - ecs_price_sync
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -16,28 +12,7 @@ concurrency:
 jobs:
   ghcr_env:
     runs-on: ubuntu-latest
-    services:
-      tags:
-        image: ghcr.io/hongfs/env:get-docker-tags
-        ports:
-          - 9000:9000
-    strategy:
-      matrix:
-        region: [cn-hongkong, cn-shenzhen]
     steps:
-    - uses: actions/checkout@v3
-    - uses: docker/login-action@v2
-      with:
-        registry: registry.cn-hongkong.aliyuncs.com
-        username: q2889895155
-        password: ${{ secrets.ALIYUN_CR_PASSWORD }}
-    - uses: docker/login-action@v2
-      with:
-        registry: registry.cn-shenzhen.aliyuncs.com
-        username: q2889895155
-        password: ${{ secrets.ALIYUN_CR_PASSWORD }}
     - name: Run
       run: |
-        cd "${GITHUB_WORKSPACE}"
-        chmod +x ./sync.sh
-        TO=registry.${{ matrix.region }}.aliyuncs.com/hongfs/env FROM=ghcr.io/hongfs/env ./sync.sh
+        podman run -it -e CONFIG_KEY=${{ secrets.SPOT_KEY }} registry.cn-hongkong.aliyuncs.com/hongfs/aliyun-ecs-spot-price:main
