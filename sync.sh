@@ -48,6 +48,10 @@ for i in "${!tags[@]}"
 do
     tag=${tags[i]}
 
+    if [[ $tag != "web-2" ]]; then
+        continue
+    fi
+
     from_tag="$from:$tag"
     to_tag="$to:$tag"
 
