@@ -3,24 +3,15 @@ name: Sync
 on:
   push:
     branches:
-      - image-sync
-  # schedule:
-  #   - cron: "0 * * * *" # 每小时同步一次
+      - api-sync
 
-# 已注释程序的同步-1
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+# concurrency:
+#   group: ${{ github.workflow }}-${{ github.ref }}
+#   cancel-in-progress: true
 
 jobs:
-  ghcr_env:
+  api_sync:
     runs-on: ubuntu-latest
-    services:
-      tags:
-        image: ghcr.io/hongfs/env:get-docker-tags
-        ports:
-          - 9000:9000
     strategy:
       matrix:
         region: [cn-hongkong, cn-shenzhen]
@@ -37,34 +28,10 @@ jobs:
         username: q2889895155
         password: ${{ secrets.ALIYUN_CR_PASSWORD }}
     - name: Run
+      env:
+        FROM_IMAGE: hongfs/env:web-1
+        TO_IMAGE: hongfs/env:web-1
       run: |
-        cd "${GITHUB_WORKSPACE}"
-        chmod +x ./sync.sh
-        TO=registry.${{ matrix.region }}.aliyuncs.com/hongfs/env FROM=ghcr.io/hongfs/env ./sync.sh
-  ghcr_env_2:
-    runs-on: ubuntu-latest
-    services:
-      tags:
-        image: ghcr.io/hongfs/env:get-docker-tags
-        ports:
-          - 9000:9000
-    strategy:
-      matrix:
-        region: [cn-hongkong, cn-shenzhen]
-    steps:
-    - uses: actions/checkout@v3
-    - uses: docker/login-action@v2
-      with:
-        registry: registry.cn-hongkong.aliyuncs.com
-        username: q2889895155
-        password: ${{ secrets.ALIYUN_CR_PASSWORD }}
-    - uses: docker/login-action@v2
-      with:
-        registry: registry.cn-shenzhen.aliyuncs.com
-        username: q2889895155
-        password: ${{ secrets.ALIYUN_CR_PASSWORD }}
-    - name: Run
-      run: |
-        cd "${GITHUB_WORKSPACE}"
-        chmod +x ./sync.sh
-        TO=registry.${{ matrix.region }}.aliyuncs.com/hongfs/ecs-command-actions FROM=ghcr.io/hongfs/ecs-command-actions ./sync.sh
+        docker pull -q ghcr.io/$FROM_IMAGE
+        docker tag ghcr.io/$FROM_IMAGE registry.${{ matrix.region }}.aliyuncs.com/$TO_IMAGE
+        docker push -q registry.${{ matrix.region }}.aliyuncs.com/$TO_IMAGE
