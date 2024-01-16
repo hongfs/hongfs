@@ -21,3 +21,5 @@ jobs:
         CONFIG_KEY: ${{ secrets.SPOT_KEY }}
       run: |
         podman run -it -e CONFIG_KEY="${{ env.CONFIG_KEY }}" registry.cn-hongkong.aliyuncs.com/hongfs/aliyun-ecs-spot-price:main
+
+        echo "1"
