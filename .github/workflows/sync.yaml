@@ -29,8 +29,8 @@ jobs:
         password: ${{ secrets.ALIYUN_CR_PASSWORD }}
     - name: Run
       env:
-        FROM_IMAGE: ghcr.io/hongfs/env:pulsar
-        TO_IMAGE: hongfs/env:pulsar
+        FROM_IMAGE: ghcr.io/hongfs/env:web-1
+        TO_IMAGE: hongfs/env:web-1
       run: |
         docker pull $FROM_IMAGE
         docker tag $FROM_IMAGE registry.${{ matrix.region }}.aliyuncs.com/$TO_IMAGE
