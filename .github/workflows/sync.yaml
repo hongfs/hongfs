@@ -27,6 +27,11 @@ jobs:
         registry: registry.cn-shenzhen.aliyuncs.com
         username: q2889895155
         password: ${{ secrets.ALIYUN_CR_PASSWORD }}
+    - uses: docker/login-action@v2
+      with:
+        registry: swr.ap-southeast-1.myhuaweicloud.com
+        username: hongfs99
+        password: ${{ secrets.HUAWEI_SWR_PASSWORD }}
     - name: Run
       env:
         FROM_IMAGE: ghcr.io/hongfs/env:web-1
