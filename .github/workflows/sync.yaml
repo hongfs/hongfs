@@ -34,8 +34,8 @@ jobs:
         password: ${{ secrets.HUAWEI_SWR_PASSWORD }}
     - name: Run
       env:
-        FROM_IMAGE: ghcr.io/hongfs/env:etcd
-        TO_IMAGE: hongfs/env:etcd
+        FROM_IMAGE: ghcr.io/hongfs/env:gping
+        TO_IMAGE: hongfs/env:gping
       run: |
         docker pull $FROM_IMAGE
         docker tag $FROM_IMAGE ${{ matrix.endpoint }}/$TO_IMAGE
