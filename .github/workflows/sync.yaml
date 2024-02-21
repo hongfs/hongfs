@@ -16,7 +16,7 @@ jobs:
       matrix:
         endpoint: [registry.cn-hongkong.aliyuncs.com]
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: docker/login-action@v2
       with:
         registry: registry.cn-hongkong.aliyuncs.com
@@ -34,8 +34,8 @@ jobs:
         password: ${{ secrets.HUAWEI_SWR_PASSWORD }}
     - name: Run
       env:
-        FROM_IMAGE: ghcr.io/hongfs/env:alpine-git
-        TO_IMAGE: hongfs/env:alpine-git
+        FROM_IMAGE: ghcr.io/hongfs/env:aliyun-cdn-edgescript
+        TO_IMAGE: hongfs/env:aliyun-cdn-edgescript
       run: |
         docker pull $FROM_IMAGE
         docker tag $FROM_IMAGE ${{ matrix.endpoint }}/$TO_IMAGE
