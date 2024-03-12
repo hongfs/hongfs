@@ -34,8 +34,8 @@ jobs:
         password: ${{ secrets.HUAWEI_SWR_PASSWORD }}
     - name: Run
       env:
-        FROM_IMAGE: ghcr.io/hongfs/env:aliyun-cli
-        TO_IMAGE: hongfs/env:aliyun-cli
+        FROM_IMAGE: ghcr.io/hongfs/env:alpine-debug
+        TO_IMAGE: hongfs/env:alpine-debug
       run: |
         docker pull $FROM_IMAGE
         docker tag $FROM_IMAGE ${{ matrix.endpoint }}/$TO_IMAGE
