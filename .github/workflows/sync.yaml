@@ -34,8 +34,8 @@ jobs:
         password: ${{ secrets.HUAWEI_SWR_PASSWORD }}
     - name: Run
       env:
-        FROM_IMAGE: ghcr.io/hongfs/env:nginx
-        TO_IMAGE: hongfs/env:nginx
+        FROM_IMAGE: ghcr.io/hongfs/env:nginx-tp6-2
+        TO_IMAGE: hongfs/env:nginx-tp6-2
       run: |
         docker pull $FROM_IMAGE
         docker tag $FROM_IMAGE ${{ matrix.endpoint }}/$TO_IMAGE
