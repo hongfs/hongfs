@@ -24,8 +24,8 @@ jobs:
         password: ${{ secrets.ALIYUN_CR_PASSWORD }}
     - name: Run
       env:
-        FROM_IMAGE: ghcr.io/hongfs/env:cook
-        TO_IMAGE: hongfs/env:cook
+        FROM_IMAGE: ghcr.io/hongfs/env:how-to-cook
+        TO_IMAGE: hongfs/env:how-to-cook
       run: |
         docker pull $FROM_IMAGE
         docker tag $FROM_IMAGE ${{ matrix.endpoint }}/$TO_IMAGE
